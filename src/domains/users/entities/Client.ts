@@ -14,8 +14,8 @@ import { Person } from './Person';
 
 @Entity('clients', { schema: 'public' })
 export class Client {
-  @PrimaryColumn()
-  uuid: string;
+  @PrimaryColumn({ name: 'uuid' })
+  id: string;
 
   @PrimaryGeneratedColumn({ name: 'id_client' })
   idClient: number;

@@ -13,8 +13,8 @@ import { Worker } from './Worker';
 
 @Entity('clients_workers', { schema: 'public' })
 export class ClientWorker {
-  @PrimaryColumn()
-  uuid: string;
+  @PrimaryColumn({ name: 'uuid' })
+  id: string;
 
   @PrimaryGeneratedColumn('increment', { name: 'id_client_worker' })
   idClientWorker: number;
