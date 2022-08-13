@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ClientWorker } from './ClientWorker';
 import { Person } from './Person';
 
 @Entity('workers', { schema: 'public' })
@@ -30,4 +32,7 @@ export class Worker {
   @OneToOne(() => Person)
   @JoinColumn({ name: 'id_person' })
   person: Person;
+
+  @OneToMany(() => ClientWorker, ({ worker }) => worker)
+  clients: ClientWorker[];
 }
