@@ -4,7 +4,7 @@ import { modelClientToApi } from './Client';
 import { modelWorkerToApi } from './Worker';
 
 export const modelPersonToApi = ({
-  uuidUser,
+  id,
   cpfCnpj,
   createdAt,
   name,
@@ -13,7 +13,7 @@ export const modelPersonToApi = ({
   worker,
 }: Person): CreatedPersonType => {
   return {
-    id: uuidUser,
+    id,
     name,
     cpf_cnpj: cpfCnpj,
     created_at: createdAt,

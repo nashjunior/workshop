@@ -2,12 +2,12 @@ import { Client } from '@domains/users/entities';
 import { CreatedClientType } from '@interfaces/response';
 
 export const modelClientToApi = ({
-  uuid,
+  id,
   createdAt,
   updatedAt,
 }: Client): CreatedClientType => {
   return {
-    id: uuid,
+    id,
     created_at: createdAt,
     updated_at: updatedAt,
   };
