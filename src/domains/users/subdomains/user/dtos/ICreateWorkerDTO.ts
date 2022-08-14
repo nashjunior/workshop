@@ -1,4 +1,4 @@
-import { ICreateRequest } from '@interfaces/requests';
+import { ICreateRequest } from '../../../../../interfaces/requests';
 
 export type CreateWorkerDTOType = ICreateRequest & {
   idPerson: number;

@@ -1,5 +1,5 @@
 import { Person } from '@domains/users/entities';
-import { CreatedPersonType } from '@interfaces/response';
+import { CreatedPersonType } from '../../../../../interfaces/response';
 import { modelClientToApi } from './Client';
 import { modelWorkerToApi } from './Worker';
 

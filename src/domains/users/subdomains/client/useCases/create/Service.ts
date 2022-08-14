@@ -1,6 +1,6 @@
-import { AppError } from '@errors/AppError';
-import { EntityNotFound } from '@errors/EntityNotFound';
-import { FieldValidation } from '@errors/FieldValidation';
+import { AppError } from '../../../../../../errors/AppError';
+import { EntityNotFound } from '../../../../../../errors/EntityNotFound';
+import { FieldValidation } from '../../../../../../errors/FieldValidation';
 import { inject, injectable } from 'tsyringe';
 import { EntityNotFoundError } from 'typeorm';
 import { ValidationError } from 'yup';
@@ -93,7 +93,6 @@ export class CreateClientWokers {
         warnings,
       };
     } catch (error) {
-      console.error((error as EntityNotFoundError).cause);
       if (error instanceof EntityNotFoundError) throw new EntityNotFound(error);
 
       if (error instanceof ValidationError) throw new FieldValidation(error);

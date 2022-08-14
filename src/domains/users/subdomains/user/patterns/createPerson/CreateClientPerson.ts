@@ -3,7 +3,7 @@ import {
   IClientRepositoty,
   IUserRepository,
 } from '@domains/users/subdomains/user';
-import { ICreateRequest } from '@interfaces/requests';
+import { ICreateRequest } from '../../../../../../interfaces/requests';
 import { GarageDataSource } from '../../../../../../database/sources';
 import { autoInjectable, inject } from 'tsyringe';
 import { CreatePerson } from './AbstractCreatePersons';

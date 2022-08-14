@@ -1,6 +1,6 @@
 import { Person } from '@domains/users/entities';
 import { IUserRepository } from '@domains/users/subdomains/user';
-import { ICreateRequest } from '@interfaces/requests';
+import { ICreateRequest } from '../../../../../../interfaces/requests';
 import { inject, injectable } from 'tsyringe';
 import { CreatePerson } from './AbstractCreatePersons';
 

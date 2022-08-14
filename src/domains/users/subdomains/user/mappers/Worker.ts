@@ -1,5 +1,5 @@
 import { Worker } from '@domains/users/entities';
-import { CreatedWorkerType } from '@interfaces/response';
+import { CreatedWorkerType } from '../../../../../interfaces/response';
 
 export const modelWorkerToApi = ({
   createdAt,

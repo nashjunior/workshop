@@ -1,5 +1,5 @@
 import { ClientWorker } from '@domains/users/entities';
-import { CreatedClientWorkerType } from '@interfaces/response';
+import { CreatedClientWorkerType } from '../../../../../interfaces/response';
 
 export const modelClientWorkerToApi = ({
   id,

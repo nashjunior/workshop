@@ -1,4 +1,4 @@
-import { FieldValidation } from '@errors/FieldValidation';
+import { FieldValidation } from '../../../../../../errors/FieldValidation';
 import { inject, injectable } from 'tsyringe';
 import { ValidationError } from 'yup';
 import { CreateUserDTOType } from '../../dtos';

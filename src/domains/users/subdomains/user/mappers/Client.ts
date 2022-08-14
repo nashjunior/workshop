@@ -1,5 +1,5 @@
 import { Client } from '@domains/users/entities';
-import { CreatedClientType } from '@interfaces/response';
+import { CreatedClientType } from '../../../../../interfaces/response';
 
 export const modelClientToApi = ({
   id,
