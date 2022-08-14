@@ -1,5 +1,5 @@
 import { Worker } from '@domains/users/entities';
-import { GarageDataSource } from 'database/sources';
+import { GarageDataSource } from '@database/sources';
 import { In } from 'typeorm';
 import { IWokersRepository } from '../interfaces/IWorkersRepository';
 

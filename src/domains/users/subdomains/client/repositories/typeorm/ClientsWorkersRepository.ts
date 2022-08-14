@@ -1,5 +1,5 @@
 import { ClientWorker } from '@domains/users/entities';
-import { GarageDataSource } from 'database/sources';
+import { GarageDataSource } from '@database/sources';
 import { IClientsWorkersRepository } from '../interfaces';
 import { v4 as uuidV4 } from 'uuid';
 

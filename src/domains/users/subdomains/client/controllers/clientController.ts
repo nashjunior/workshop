@@ -1,5 +1,5 @@
 import { ICreateRequest } from '@interfaces/requests';
-import { dependecyContainer } from 'container';
+import { dependecyContainer } from '../../../../../container';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateClientWokers } from '../useCases';
 
