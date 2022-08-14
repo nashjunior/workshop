@@ -1,4 +1,4 @@
-import { dependecyContainer } from 'container';
+import { dependecyContainer } from '../../../../container';
 import {
   ClientTypeormRepository,
   IClientRepositoty,

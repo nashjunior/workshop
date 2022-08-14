@@ -1,3 +1,3 @@
-export * from './PersonMappper';
+export * from './Person';
 export * from './Client';
 export * from './Worker';

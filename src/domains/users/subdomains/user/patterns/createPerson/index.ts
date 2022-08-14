@@ -1,4 +1,4 @@
-import { dependecyContainer } from 'container';
+import { dependecyContainer } from '../../../../../../container';
 import { CreateClientPerson } from './CreateClientPerson';
 import { CreateNormalPerson } from './CreateNormalPerson';
 import { CreateWorkerPerson } from './CreateWorkerPerson';

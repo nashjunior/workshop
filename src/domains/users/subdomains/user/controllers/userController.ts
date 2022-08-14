@@ -1,4 +1,4 @@
-import { dependecyContainer } from 'container';
+import { dependecyContainer } from '../../../../../container';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserService } from '../useCases';
 

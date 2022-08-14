@@ -4,10 +4,10 @@ import { CreatedWorkerType } from '@interfaces/response';
 export const modelWorkerToApi = ({
   createdAt,
   updatedAt,
-  uuid,
+  id,
 }: Worker): CreatedWorkerType => {
   return {
-    id: uuid,
+    id,
     created_at: createdAt,
     updated_at: updatedAt,
   };

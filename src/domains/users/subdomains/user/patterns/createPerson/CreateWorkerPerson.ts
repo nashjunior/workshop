@@ -53,8 +53,6 @@ export class CreateWorkerPerson extends CreatePerson {
         worker,
       };
     } catch (error) {
-      console.log('worker');
-
       await queryRunner.rollbackTransaction();
       throw error;
     } finally {

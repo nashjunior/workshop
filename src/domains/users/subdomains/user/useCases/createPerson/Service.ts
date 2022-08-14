@@ -27,7 +27,8 @@ export class CreateUserService {
       return modelPersonToApi(userCreated);
     } catch (error) {
       if (error instanceof ValidationError) throw new FieldValidation(error);
-      throw new Error('Teste');
+
+      throw error;
     }
   }
 }

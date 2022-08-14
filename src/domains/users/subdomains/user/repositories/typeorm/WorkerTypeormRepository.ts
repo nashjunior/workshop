@@ -20,7 +20,7 @@ export const WorkerTypeormRepository = GarageDataSource.getRepository(
   async createOne(dto: CreateWorkerDTOType, queryRunner?: QueryRunner) {
     const instance = this.create({
       ...dto,
-      uuid: uuidV4(),
+      id: uuidV4(),
     });
 
     return queryRunner
