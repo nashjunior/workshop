@@ -10,8 +10,8 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migrate:prod": "yarn typeorm migration:run",
     "transpile": "rimraf dist && babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "build": "rimraf build && rollup -c rollup.config.js",
-    "start"
+    "build": "rimraf build && rollup -c rollup.config.js && rimraf dist",
+    "start": "node build/app/server.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
