@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { environment } from '@config/enviroment';
-import { GarageDataSource } from 'database/sources';
+import { GarageDataSource } from '@database/sources';
 import { server } from './app';
 import './routes';
 
