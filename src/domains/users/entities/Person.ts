@@ -1,20 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from './BaseEntity';
 import { Client } from './Client';
 import { Worker } from './Worker';
 
 @Entity('persons', { schema: 'public' })
-export class Person {
-  @PrimaryColumn('uuid', { name: 'uuid' })
-  id: string;
-
+export class Person extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'id_person' })
   idPerson: number;
 
@@ -23,12 +13,6 @@ export class Person {
 
   @Column({ name: 'cpf_cnpj' })
   cpfCnpj: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 
   @OneToOne(() => Worker, ({ person }) => person)
   worker: Worker;
