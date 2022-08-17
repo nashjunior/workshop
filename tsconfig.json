@@ -104,8 +104,8 @@
       "@modules/*": ["modules/*"],
       "@domains/*": ["domains/*"],
       "@config/*": ["config/*"],
-      "@errors/*": ["errors/*"],
-      "@interfaces/*": ["interfaces/*"],
+      // "@errors/*": ["errors/*"],
+      // "@interfaces/*": ["interfaces/*"],
       "@utils/*": ["utils/*"],
       "@database/*": ["database/*"]
 
