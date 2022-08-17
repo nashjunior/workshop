@@ -1,6 +1,7 @@
 import { dependecyContainer } from 'container';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { CreateBrandService } from '../useCases';
+import { FindBrandByUUIDService } from '../useCases/findByUUID';
 
 type BodyType = { name: string };
 
@@ -19,5 +20,20 @@ export class BrandsController {
     });
 
     return response.status(201).send(brand);
+  }
+
+  async show(
+    request: FastifyRequest<{ Params: { id: string } }>,
+    response: FastifyReply,
+  ) {
+    const { id } = request.params;
+
+    const findBrandByUUIDService = dependecyContainer.resolve(
+      FindBrandByUUIDService,
+    );
+
+    const brand = await findBrandByUUIDService.execute(id);
+
+    return response.send(brand);
   }
 }
