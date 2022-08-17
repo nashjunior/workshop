@@ -42,7 +42,7 @@ export class CreateClientPerson extends CreatePerson {
       );
 
       const client = await this.clientRepositoty.createOne(
-        { idPerson: person.idPerson, criado_por: rest.criado_por },
+        { idPerson: person.idPerson, createdBy: rest.createdBy },
         queryRunner,
       );
 

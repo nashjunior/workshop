@@ -20,7 +20,7 @@ export class ClientController {
     const clientsWokers = await createClientWokers.execute({
       idClient: id_client,
       idsWorkers: ids_workers,
-      criado_por: 'aeuah',
+      createdBy: 'aeuah',
     });
 
     return response.status(201).send(clientsWokers);
