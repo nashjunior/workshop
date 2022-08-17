@@ -20,4 +20,8 @@ export const BrandsRepository = GarageDataSource.getRepository(
 
     return this.findOneBy({ name: ILike(name), deletedAt: IsNull() });
   },
+
+  findByUUID(id) {
+    return this.findOneOrFail({ where: { id } });
+  },
 });
