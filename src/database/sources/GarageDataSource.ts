@@ -8,5 +8,4 @@ export const GarageDataSource = new DataSource({
   url: environment.parsed?.DATABASE_URL,
   migrations: [environment.parsed?.PATH_MIGRATIONS as string],
   entities: [...usersEntities, ...entitiesVehicles],
-  logging: true,
 });
