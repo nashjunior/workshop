@@ -1,11 +1,12 @@
 import * as Yup from 'yup';
 import { QueryFields, SortFieldsType } from '../enums';
 
-export const createBrandSchema = Yup.object().shape({
+export const createModelSchema = Yup.object().shape({
   name: Yup.string().required().max(128),
+  idBrand: Yup.string().uuid('id brand must be uuid').required(),
 });
 
-export const findBrandsSchema = Yup.object().shape(
+export const findModelsSchema = Yup.object().shape(
   {
     query: Yup.string().notRequired(),
     queryFields: Yup.array().of(

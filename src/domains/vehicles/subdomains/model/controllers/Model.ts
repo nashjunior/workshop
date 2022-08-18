@@ -1,26 +1,27 @@
-import { dependecyContainer } from 'container';
-import { FastifyRequest, FastifyReply } from 'fastify';
+import { dependecyContainer } from '../../../../../container';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { CreateModelService, FindModelByUUIDService } from '../useCases';
 import { IRequestQueryType } from '../../../../../interfaces/requests';
-import { CreateBrandService, FindBrandsService } from '../useCases';
-import { FindBrandByUUIDService } from '../useCases/findByUUID';
+import { FindModelsService } from '../useCases';
 
-type BodyType = { name: string };
+type BodyType = { name: string; id_brand: string };
 
-export class BrandsController {
+export class ModelsController {
   async create(
     request: FastifyRequest<{ Body: BodyType }>,
     response: FastifyReply,
   ) {
-    const { name } = request.body;
+    const { name, id_brand } = request.body;
 
-    const createBrandService = dependecyContainer.resolve(CreateBrandService);
+    const createBrandService = dependecyContainer.resolve(CreateModelService);
 
-    const brand = await createBrandService.execute({
+    const model = await createBrandService.execute({
       createdBy: '123',
       name,
+      idBrand: id_brand,
     });
 
-    return response.status(201).send(brand);
+    return response.status(201).send(model);
   }
 
   async show(
@@ -29,11 +30,11 @@ export class BrandsController {
   ) {
     const { id } = request.params;
 
-    const findBrandByUUIDService = dependecyContainer.resolve(
-      FindBrandByUUIDService,
+    const findModelByUUIDService = dependecyContainer.resolve(
+      FindModelByUUIDService,
     );
 
-    const brand = await findBrandByUUIDService.execute(id);
+    const brand = await findModelByUUIDService.execute(id);
 
     return response.send(brand);
   }
@@ -45,8 +46,8 @@ export class BrandsController {
     const { order_sort, query, query_fields, sort, deleted, page, perPage } =
       request.query;
 
-    const findBrandsService = dependecyContainer.resolve(FindBrandsService);
-    const brands = await findBrandsService.execute({
+    const findModelsService = dependecyContainer.resolve(FindModelsService);
+    const brands = await findModelsService.execute({
       deleted: Boolean(deleted),
       queryFields: Array.isArray(query_fields) ? query_fields : [query_fields],
       query,

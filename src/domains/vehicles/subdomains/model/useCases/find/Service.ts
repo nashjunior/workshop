@@ -1,18 +1,21 @@
 import { FindRequestType } from '../../../../../../interfaces/requests';
 import { inject, injectable } from 'tsyringe';
-import { IBrandsRepository } from '../../repositories';
-import { findBrandsSchema } from '../../schemas';
+import { IModelsRepository } from '../../repositories';
+import { findModelsSchema } from '../../schemas';
 import { ValidationError } from 'yup';
-import { manyModelBrandsToAPI } from '../../mapper/brand';
+import { manyModelModelsToAPI } from '../../mapper';
 import { QueryFields, SortFieldsType } from '../../enums';
 
 @injectable()
-export class FindBrandsService {
+export class FindModelsService {
   constructor(
-    @inject('BrandsRepository') private brandsRepository: IBrandsRepository,
+    @inject('ModelsTypeormRepository')
+    private modelsRepository: IModelsRepository,
   ) {}
 
   async execute({ deleted = false, ...rest }: FindRequestType) {
+    console.log(rest);
+
     try {
       const {
         query,
@@ -21,7 +24,7 @@ export class FindBrandsService {
         sortedFieldsType,
         page,
         perPage,
-      } = await findBrandsSchema.validate(rest, {
+      } = await findModelsSchema.validate(rest, {
         abortEarly: false,
       });
 
@@ -37,7 +40,6 @@ export class FindBrandsService {
               type: sortedFieldsType,
             }
           : undefined;
-
       const queryFilter =
         query && queryFields && queryFields.length > 0
           ? {
@@ -48,8 +50,8 @@ export class FindBrandsService {
             }
           : undefined;
 
-      const [items, total] = await this.brandsRepository.find({
-        deletado: deleted,
+      const [items, total] = await this.modelsRepository.find({
+        deleted,
         order: order as any,
         query: queryFilter as any,
         page,
@@ -59,7 +61,7 @@ export class FindBrandsService {
       const hasPagination = page && perPage;
 
       return {
-        items: manyModelBrandsToAPI(items),
+        items: manyModelModelsToAPI(items),
         total,
         totalPage: hasPagination ? Math.ceil(total / perPage) : 1,
       };
