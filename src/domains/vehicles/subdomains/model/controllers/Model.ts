@@ -1,6 +1,6 @@
 import { dependecyContainer } from '../../../../../container';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { CreateModelService } from '../useCases';
+import { CreateModelService, FindModelByUUIDService } from '../useCases';
 
 type BodyType = { name: string; id_brand: string };
 
@@ -20,5 +20,20 @@ export class ModelsController {
     });
 
     return response.status(201).send(model);
+  }
+
+  async show(
+    request: FastifyRequest<{ Params: { id: string } }>,
+    response: FastifyReply,
+  ) {
+    const { id } = request.params;
+
+    const findModelByUUIDService = dependecyContainer.resolve(
+      FindModelByUUIDService,
+    );
+
+    const brand = await findModelByUUIDService.execute(id);
+
+    return response.send(brand);
   }
 }
