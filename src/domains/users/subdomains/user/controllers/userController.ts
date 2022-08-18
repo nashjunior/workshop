@@ -20,7 +20,7 @@ export class UserController {
     const user = await createUserService.execute({
       name,
       cpfCnpj: cpf_cnpj,
-      criado_por: 'aeuhae',
+      createdBy: 'aeuhae',
       type,
     });
 

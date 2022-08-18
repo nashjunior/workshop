@@ -1,33 +1,22 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
+import { BaseEntity } from './BaseEntity';
 import { ClientWorker } from './ClientWorker';
 import { Person } from './Person';
 
 @Entity('clients', { schema: 'public' })
-export class Client {
-  @PrimaryColumn({ name: 'uuid' })
-  id: string;
-
+export class Client extends BaseEntity {
   @PrimaryGeneratedColumn({ name: 'id_client' })
   idClient: number;
 
   @Column({ name: 'id_person' })
   idPerson: number;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 
   @OneToOne(() => Person)
   @JoinColumn({ name: 'id_person' })

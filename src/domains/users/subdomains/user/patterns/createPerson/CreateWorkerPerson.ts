@@ -42,7 +42,7 @@ export class CreateWorkerPerson extends CreatePerson {
       );
 
       const worker = await this.workerRepository.createOne(
-        { idPerson: person.idPerson, criado_por: rest.criado_por },
+        { idPerson: person.idPerson, createdBy: rest.createdBy },
         queryRunner,
       );
 

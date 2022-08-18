@@ -18,8 +18,6 @@ export const errorMiddleware = (
   req: FastifyRequest,
   res: FastifyReply,
 ) => {
-  console.log(err);
-
   let error: ErrorType = {
     statusCode: 500,
     error: 'Internal server Error',

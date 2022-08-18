@@ -1,21 +1,16 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
+import { BaseEntity } from './BaseEntity';
 import { Client } from './Client';
 import { Worker } from './Worker';
 
 @Entity('clients_workers', { schema: 'public' })
-export class ClientWorker {
-  @PrimaryColumn({ name: 'uuid' })
-  id: string;
-
+export class ClientWorker extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'id_client_worker' })
   idClientWorker: number;
 
@@ -24,12 +19,6 @@ export class ClientWorker {
 
   @Column({ name: 'id_client' })
   idClient: number;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 
   @ManyToOne(() => Worker)
   @JoinColumn({ name: 'id_worker' })
