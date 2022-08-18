@@ -10,7 +10,7 @@ export const modelsRouter = function (
   done: (error?: Error) => void,
 ) {
   fastify.post('/', modelsController.create);
-  // fastify.get('/', brandsController.list);
+  fastify.get('/', modelsController.list);
   fastify.get('/:id', modelsController.show);
 
   done();
