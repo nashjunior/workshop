@@ -1,7 +1,8 @@
+import { dependecyContainer } from 'container';
 import { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import { ModelsController } from '../controllers';
 
-const modelsController = new ModelsController();
+const modelsController = dependecyContainer.resolve(ModelsController);
 
 export const modelsRouter = function (
   fastify: FastifyInstance,
@@ -10,7 +11,7 @@ export const modelsRouter = function (
 ) {
   fastify.post('/', modelsController.create);
   // fastify.get('/', brandsController.list);
-  // fastify.get('/:id', brandsController.show);
+  fastify.get('/:id', modelsController.show);
 
   done();
 };
