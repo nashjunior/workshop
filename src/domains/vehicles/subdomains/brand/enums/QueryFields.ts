@@ -1,3 +1,3 @@
-export enum QueryFields {
-  NAME = 'name',
-}
+export const QueryFields = {
+  NAME: 'name',
+};

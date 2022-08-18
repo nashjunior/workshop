@@ -50,8 +50,8 @@ export class BrandsController {
       deleted: Boolean(deleted),
       queryFields: Array.isArray(query_fields) ? query_fields : [query_fields],
       query,
-      sortedFields: sort as any[],
-      sortedFieldsType: order_sort,
+      sortedFields: Array.isArray(sort) ? sort : [sort],
+      sortedFieldsType: Array.isArray(order_sort) ? order_sort : [order_sort],
       page,
       perPage,
     });

@@ -1,4 +1,4 @@
-export enum SortFieldsType {
-  name = 'name',
-  createdAt = 'created_At',
-}
+export const SortFieldsType = {
+  NAME: 'name',
+  CREATED_AT: 'created_At',
+};

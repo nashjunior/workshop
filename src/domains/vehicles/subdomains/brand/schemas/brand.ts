@@ -9,11 +9,18 @@ export const findBrandsSchema = Yup.object().shape(
   {
     query: Yup.string().notRequired(),
     queryFields: Yup.array().of(
-      Yup.mixed<QueryFields>().oneOf([QueryFields.NAME]),
+      Yup.mixed<keyof typeof QueryFields>().oneOf(
+        Object.keys(QueryFields) as any,
+      ),
     ),
 
-    sortedFields: Yup.array()
-      .of(Yup.string().oneOf(['asc', 'desc', 'ASC', 'DESC']).uppercase())
+    sortedFieldsType: Yup.array()
+      .of(
+        Yup.string()
+          .oneOf(['asc', 'desc', 'ASC', 'DESC'])
+          .uppercase()
+          .required(),
+      )
       .test(
         'isSameSize',
         'fields to sort length and types of sort length does not match',
@@ -25,12 +32,11 @@ export const findBrandsSchema = Yup.object().shape(
           return sortedFieldsType?.length === fields?.length;
         },
       ),
-    sortedFieldsType: Yup.array()
+    sortedFields: Yup.array()
       .of(
-        Yup.mixed<SortFieldsType>().oneOf([
-          SortFieldsType.createdAt,
-          SortFieldsType.name,
-        ]),
+        Yup.mixed<keyof typeof SortFieldsType>()
+          .oneOf(Object.keys(SortFieldsType) as any)
+          .required(),
       )
       .test(
         'isSameSize',

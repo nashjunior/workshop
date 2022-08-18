@@ -4,6 +4,7 @@ import { IBrandsRepository } from '../../repositories';
 import { findBrandsSchema } from '../../schemas';
 import { ValidationError } from 'yup';
 import { manyModelBrandsToAPI } from '../../mapper/brand';
+import { QueryFields, SortFieldsType } from '../../enums';
 
 @injectable()
 export class FindBrandsService {
@@ -26,13 +27,24 @@ export class FindBrandsService {
 
       const order =
         sortedFields && sortedFieldsType && sortedFields.length > 0
-          ? { fields: sortedFields, type: sortedFieldsType }
+          ? {
+              fields: (sortedFields as (keyof typeof SortFieldsType)[]).map(
+                field => {
+                  console.log(SortFieldsType[field]);
+                  return SortFieldsType[field];
+                },
+              ),
+              type: sortedFieldsType,
+            }
           : undefined;
+
       const queryFilter =
         query && queryFields && queryFields.length > 0
           ? {
               value: query,
-              fields: queryFields,
+              fields: (queryFields as (keyof typeof QueryFields)[]).map(
+                field => QueryFields[field],
+              ),
             }
           : undefined;
 
