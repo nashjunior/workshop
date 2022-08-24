@@ -1,0 +1,29 @@
+import { Vehicle } from '@domains/vehicles/entites';
+import { CreatedVehicleType } from '../../../../../interfaces/response';
+import { modelModelToApi } from '../../model/mapper';
+
+export const modelVehicleToApi = ({
+  id,
+  createdAt,
+  updatedAt,
+  fabricationYear,
+  modelYear,
+  deletedAt,
+  model,
+}: Vehicle): CreatedVehicleType => {
+  return {
+    id,
+    fabrication_year: fabricationYear,
+    model_year: modelYear,
+    created_at: createdAt,
+    updated_at: updatedAt,
+    deleted_at: deletedAt,
+    model: modelModelToApi(model),
+  };
+};
+
+export const manyVehicleVehiclesToAPI = (
+  clients: Vehicle[],
+): CreatedVehicleType[] => {
+  return clients.map(client => modelVehicleToApi(client));
+};
