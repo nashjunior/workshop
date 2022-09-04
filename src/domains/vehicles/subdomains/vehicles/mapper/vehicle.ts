@@ -22,7 +22,7 @@ export const modelVehicleToApi = ({
   };
 };
 
-export const manyVehicleVehiclesToAPI = (
+export const manyModelVehiclesToAPI = (
   clients: Vehicle[],
 ): CreatedVehicleType[] => {
   return clients.map(client => modelVehicleToApi(client));
