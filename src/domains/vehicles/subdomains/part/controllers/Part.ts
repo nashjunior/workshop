@@ -1,6 +1,6 @@
 import { dependecyContainer } from '../../../../../container';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { CreatePartService } from '../useCases';
+import { CreatePartService, FindPartByUUIDService } from '../useCases';
 import { injectable } from 'tsyringe';
 
 type BodyType = { name: string; description?: string };
@@ -22,5 +22,18 @@ export class PartsController {
     });
 
     return response.status(201).send(part);
+  }
+
+  async show(
+    { params: { id } }: FastifyRequest<{ Params: { id: string } }>,
+    response: FastifyReply,
+  ) {
+    const findPartByUUIDService = dependecyContainer.resolve(
+      FindPartByUUIDService,
+    );
+
+    const part = await findPartByUUIDService.execute(id);
+
+    return response.send(part);
   }
 }
