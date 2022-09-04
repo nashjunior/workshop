@@ -43,16 +43,32 @@ export class ModelsController {
     request: FastifyRequest<{ Querystring: IRequestQueryType }>,
     response: FastifyReply,
   ) {
-    const { order_sort, query, query_fields, sort, deleted, page, perPage } =
-      request.query;
+    const {
+      order_sort,
+      query,
+      sort,
+      deleted,
+      page,
+      perPage,
+      'query_fields[]': queryFields,
+    } = request.query;
+
+    let sortedFields: string[] = [];
+    const sortedFieldsType: string[] = [];
+
+    if (Array.isArray(sort)) sortedFields = sort;
+    else if (sort) sortedFields.push(sort);
+
+    if (Array.isArray(order_sort)) sortedFields = order_sort;
+    else if (order_sort) sortedFields.push(order_sort);
 
     const findModelsService = dependecyContainer.resolve(FindModelsService);
     const brands = await findModelsService.execute({
       deleted: Boolean(deleted),
-      queryFields: Array.isArray(query_fields) ? query_fields : [query_fields],
+      queryFields: Array.isArray(queryFields) ? queryFields : [queryFields],
       query,
-      sortedFields: Array.isArray(sort) ? sort : [sort],
-      sortedFieldsType: Array.isArray(order_sort) ? order_sort : [order_sort],
+      sortedFields,
+      sortedFieldsType,
       page,
       perPage,
     });

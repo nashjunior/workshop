@@ -14,8 +14,6 @@ export class FindModelsService {
   ) {}
 
   async execute({ deleted = false, ...rest }: FindRequestType) {
-    console.log(rest);
-
     try {
       const {
         query,
@@ -32,10 +30,7 @@ export class FindModelsService {
         sortedFields && sortedFieldsType && sortedFields.length > 0
           ? {
               fields: (sortedFields as (keyof typeof SortFieldsType)[]).map(
-                field => {
-                  console.log(SortFieldsType[field]);
-                  return SortFieldsType[field];
-                },
+                field => SortFieldsType[field],
               ),
               type: sortedFieldsType,
             }
