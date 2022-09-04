@@ -13,4 +13,8 @@ export const PartsRepository = GarageDataSource.getRepository(
 
     return this.save(instance);
   },
+
+  findByUUID(id) {
+    return this.findOneOrFail({ where: { id } });
+  },
 });
