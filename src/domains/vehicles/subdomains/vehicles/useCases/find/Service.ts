@@ -1,16 +1,17 @@
 import { FindRequestType } from '../../../../../../interfaces/requests';
 import { inject, injectable } from 'tsyringe';
-import { IModelsRepository } from '../../repositories';
-import { findModelsSchema } from '../../schemas';
-import { ValidationError } from 'yup';
-import { manyModelModelsToAPI } from '../../mapper';
+import { IVehiclesRepository } from '../../repositories';
+import { findVehiclesSchema } from '../../schemas';
 import { QueryFields, SortFieldsType } from '../../enums';
+import { manyModelVehiclesToAPI } from '../../mapper';
+import { ValidationError } from 'yup';
+import { FieldValidation } from '../../../../../../errors';
 
 @injectable()
-export class FindModelsService {
+export class FindVehiclesService {
   constructor(
-    @inject('ModelsTypeormRepository')
-    private modelsRepository: IModelsRepository,
+    @inject('VehiclesTypeormRepository')
+    private vehiclesRepository: IVehiclesRepository,
   ) {}
 
   async execute({ deleted = false, ...rest }: FindRequestType) {
@@ -22,7 +23,7 @@ export class FindModelsService {
         sortedFieldsType,
         page,
         perPage,
-      } = await findModelsSchema.validate(rest, {
+      } = await findVehiclesSchema.validate(rest, {
         abortEarly: false,
       });
 
@@ -45,7 +46,7 @@ export class FindModelsService {
             }
           : undefined;
 
-      const [items, total] = await this.modelsRepository.find({
+      const [items, total] = await this.vehiclesRepository.find({
         deleted,
         order: order as any,
         query: queryFilter as any,
@@ -56,12 +57,12 @@ export class FindModelsService {
       const hasPagination = page && perPage;
 
       return {
-        items: manyModelModelsToAPI(items),
+        items: manyModelVehiclesToAPI(items),
         total,
         totalPage: hasPagination ? Math.ceil(total / perPage) : 1,
       };
     } catch (error) {
-      if (error instanceof ValidationError) throw new ValidationError(error);
+      if (error instanceof ValidationError) throw new FieldValidation(error);
 
       throw error;
     }

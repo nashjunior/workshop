@@ -11,7 +11,7 @@ export const modelModelToApi = ({
   brand,
 }: Model): CreatedModelType => {
   return {
-    id,
+    id: id.trim(),
     name,
     created_at: createdAt,
     updated_at: updatedAt,
