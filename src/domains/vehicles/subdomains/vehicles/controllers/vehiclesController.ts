@@ -1,7 +1,12 @@
 import { dependecyContainer } from 'container';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { IRequestQueryType } from '../../../../../interfaces/requests';
 import { injectable } from 'tsyringe';
-import { CreateVehicleService, FindVehicleByIDService } from '../useCases';
+import {
+  CreateVehicleService,
+  FindVehicleByIDService,
+  FindVehiclesService,
+} from '../useCases';
 
 type BodyType = {
   id_model: string;
@@ -49,5 +54,42 @@ export class VehiclesController {
     const vehicle = await findVehicleByIDService.execute(id);
 
     return response.send(vehicle);
+  }
+
+  async list(
+    request: FastifyRequest<{ Querystring: IRequestQueryType }>,
+    response: FastifyReply,
+  ) {
+    const {
+      order_sort,
+      query,
+      sort,
+      deleted,
+      page,
+      perPage,
+      'query_fields[]': queryFields,
+    } = request.query;
+
+    let sortedFields: string[] = [];
+    const sortedFieldsType: string[] = [];
+
+    if (Array.isArray(sort)) sortedFields = sort;
+    else if (sort) sortedFields.push(sort);
+
+    if (Array.isArray(order_sort)) sortedFields = order_sort;
+    else if (order_sort) sortedFields.push(order_sort);
+
+    const findVehiclesService = dependecyContainer.resolve(FindVehiclesService);
+    const vehicles = await findVehiclesService.execute({
+      deleted: !!deleted,
+      queryFields: Array.isArray(queryFields) ? queryFields : [queryFields],
+      query,
+      sortedFields,
+      sortedFieldsType,
+      page,
+      perPage,
+    });
+
+    return response.send(vehicles);
   }
 }
