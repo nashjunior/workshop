@@ -3,4 +3,5 @@ import { ICreatePartDTOType } from '../../dtos';
 
 export interface IPartsRepository {
   createOne(dto: ICreatePartDTOType): Promise<Part>;
+  findByUUID(id: string): Promise<Part>;
 }
