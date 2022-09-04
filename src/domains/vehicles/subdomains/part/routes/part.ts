@@ -11,7 +11,7 @@ export const partsRouter = function (
 ) {
   fastify.post('/', partsController.create);
   // fastify.get('/', modelsController.list);
-  // fastify.get('/:id', modelsController.show);
+  fastify.get('/:id', partsController.show);
 
   done();
 };
