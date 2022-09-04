@@ -10,7 +10,7 @@ export const vehiclesRouter = function (
   done: (error?: Error) => void,
 ) {
   fastify.post('/', vehiclesController.create);
-  // fastify.get('/', vehiclesController.list);
+  fastify.get('/', vehiclesController.list);
   fastify.get('/:id', vehiclesController.show);
 
   done();
