@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './BaseEntity';
+import { PartPhoto } from './PartPhoto';
 
 @Entity('parts', { schema: 'vehicles' })
 export class Part extends BaseEntity {
@@ -17,4 +18,7 @@ export class Part extends BaseEntity {
 
   @Column({ name: 'updated_by' })
   updatedBy: string;
+
+  @OneToMany(() => PartPhoto, ({ part }) => part)
+  photos: PartPhoto[];
 }
