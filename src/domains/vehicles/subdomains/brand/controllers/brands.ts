@@ -1,4 +1,4 @@
-import { dependecyContainer } from 'container';
+import { dependecyContainer } from '../../../../../container';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { IRequestQueryType } from '../../../../../interfaces/requests';
 import { CreateBrandService, FindBrandsService } from '../useCases';
@@ -42,13 +42,20 @@ export class BrandsController {
     request: FastifyRequest<{ Querystring: IRequestQueryType }>,
     response: FastifyReply,
   ) {
-    const { order_sort, query, query_fields, sort, deleted, page, perPage } =
-      request.query;
+    const {
+      order_sort,
+      query,
+      sort,
+      deleted,
+      page,
+      perPage,
+      'query_fields[]': queryFields,
+    } = request.query;
 
     const findBrandsService = dependecyContainer.resolve(FindBrandsService);
     const brands = await findBrandsService.execute({
       deleted: Boolean(deleted),
-      queryFields: Array.isArray(query_fields) ? query_fields : [query_fields],
+      queryFields: Array.isArray(queryFields) ? queryFields : [queryFields],
       query,
       sortedFields: Array.isArray(sort) ? sort : [sort],
       sortedFieldsType: Array.isArray(order_sort) ? order_sort : [order_sort],

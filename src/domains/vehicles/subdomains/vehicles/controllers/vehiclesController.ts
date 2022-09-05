@@ -1,4 +1,4 @@
-import { dependecyContainer } from 'container';
+import { dependecyContainer } from '../../../../../container';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { IRequestQueryType } from '../../../../../interfaces/requests';
 import { injectable } from 'tsyringe';
