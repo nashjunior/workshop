@@ -6,17 +6,22 @@ export const createPartPhotoSchema = yup.object().shape(
     url: yup
       .string()
       .notRequired()
-      .when('file', {
+      .when('files', {
         is: (url?: string) => !url,
         then: yup.string().required(),
       }),
-    file: yup
-      .mixed<Multipart>()
+    files: yup
+      .array()
+      .of(yup.mixed<Multipart>().required())
       .notRequired()
       .when('url', {
         is: (url?: string) => !url,
-        then: yup.mixed<Multipart>().required(),
+        then: yup
+          .array()
+          .of(yup.mixed<Multipart>().required())
+          .required()
+          .min(1),
       }),
   },
-  ['url', 'file'] as any,
+  ['url', 'files'] as any,
 );
