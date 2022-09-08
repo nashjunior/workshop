@@ -15,7 +15,7 @@ import { manyModelPartsPhotosToAPI } from '../../mapper/part.photo';
 
 type IRequestType = ICreateRequest & {
   url?: string;
-  file?: FileInfo & { data: Buffer };
+  files?: (FileInfo & { data: Buffer })[];
   idPart: string;
 };
 
@@ -28,15 +28,20 @@ export class CreatePartPhotoService {
     @inject('PartsTypeormRepository') private partsRepository: IPartsRepository,
   ) {}
 
-  async execute({ file, url, idPart, createdBy }: IRequestType) {
-    let newFileName = '';
+  async execute({ files = [], url, idPart, createdBy }: IRequestType) {
+    const newFilesNames: string[] = [];
     let folderName = '';
     const date = new Date();
 
-    if (file) {
-      const hash = crypto.randomBytes(12).toString('hex');
+    if (files.length > 0) {
       folderName = `${uploadsFolder}/${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-      newFileName = `/${hash}-${file?.filename}`;
+
+      newFilesNames.push(
+        ...files.map(file => {
+          const hash = crypto.randomBytes(12).toString('hex');
+          return `/${hash}-${file?.filename}`;
+        }),
+      );
     }
 
     try {
@@ -44,20 +49,24 @@ export class CreatePartPhotoService {
 
       const dtos: ICreatePartPhotoDTOType[] = [];
       await createPartPhotoSchema.validate(
-        { file, url },
+        { files, url },
         { abortEarly: false },
       );
 
-      if (file) {
+      if (files.length > 0) {
         fs.mkdirSync(folderName, { recursive: true });
-        fs.writeFileSync(`${folderName}${newFileName}`, file.data);
 
-        dtos.push({
-          createdBy,
-          idPart: id,
-          url: `${
-            environment.parsed?.API_BASE_URL
-          }/uploads/${date.getFullYear()}-${date.getMonth()}-${date.getDate()}${newFileName}`,
+        files.forEach((file, index) => {
+          fs.writeFileSync(`${folderName}${newFilesNames[index]}`, file.data);
+          dtos.push({
+            createdBy,
+            idPart: id,
+            url: `${
+              environment.parsed?.API_BASE_URL
+            }/uploads/${date.getFullYear()}-${date.getMonth()}-${date.getDate()}${
+              newFilesNames[index]
+            }`,
+          });
         });
       }
 
@@ -68,7 +77,8 @@ export class CreatePartPhotoService {
     } catch (error) {
       if (error instanceof ValidationError) throw new FieldValidation(error);
 
-      if (file) fs.unlinkSync(newFileName);
+      if (files.length > 0)
+        newFilesNames.forEach(newFileName => fs.unlinkSync(newFileName));
 
       throw error;
     }
