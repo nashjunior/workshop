@@ -13,21 +13,23 @@ type BodyType = {
   fabrication_year: number;
   model_year: number;
   description: string;
+  type: string;
 };
 
 @injectable()
 export class VehiclesController {
   async create(
-    request: FastifyRequest<{ Body: BodyType }>,
+    {
+      body: {
+        description,
+        fabrication_year: fabricationYear,
+        model_year: modelYear,
+        id_model: idModel,
+        type,
+      },
+    }: FastifyRequest<{ Body: BodyType }>,
     response: FastifyReply,
   ) {
-    const {
-      description,
-      fabrication_year: fabricationYear,
-      model_year: modelYear,
-      id_model: idModel,
-    } = request.body;
-
     const createVehicleService =
       dependecyContainer.resolve(CreateVehicleService);
 
@@ -37,6 +39,7 @@ export class VehiclesController {
       idModel,
       description,
       modelYear,
+      type,
     });
 
     return response.status(201).send(vehicle);
@@ -61,13 +64,13 @@ export class VehiclesController {
     response: FastifyReply,
   ) {
     const {
-      order_sort,
       query,
-      sort,
       deleted,
       page,
       perPage,
       'query_fields[]': queryFields,
+      'order_sort[]': orderSort,
+      'sort[]': sort,
     } = request.query;
 
     let sortedFields: string[] = [];
@@ -76,8 +79,8 @@ export class VehiclesController {
     if (Array.isArray(sort)) sortedFields = sort;
     else if (sort) sortedFields.push(sort);
 
-    if (Array.isArray(order_sort)) sortedFields = order_sort;
-    else if (order_sort) sortedFields.push(order_sort);
+    if (Array.isArray(orderSort)) sortedFields = orderSort;
+    else if (orderSort) sortedFields.push(orderSort);
 
     const findVehiclesService = dependecyContainer.resolve(FindVehiclesService);
     const vehicles = await findVehiclesService.execute({
