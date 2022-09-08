@@ -20,6 +20,9 @@ export class Vehicle extends BaseEntity {
   @Column({ name: 'id_model' })
   idModel: number;
 
+  @Column()
+  type: string;
+
   @Column({ name: 'fabrication_year' })
   fabricationYear: number;
 
