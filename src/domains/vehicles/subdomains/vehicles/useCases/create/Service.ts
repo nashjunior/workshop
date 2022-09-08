@@ -8,7 +8,10 @@ import { IModelsRepository } from '@domains/vehicles/subdomains/model';
 import { EntityNotFoundError } from 'typeorm';
 import { modelVehicleToApi } from '../../mapper';
 
-type RequestType = Omit<CreateVehicleDTOType, 'idModel'> & { idModel: string };
+type RequestType = Omit<CreateVehicleDTOType, 'idModel'> & {
+  idModel: string;
+  type: string;
+};
 
 @injectable()
 export class CreateVehicleService {
@@ -26,16 +29,16 @@ export class CreateVehicleService {
     idModel,
     modelYear,
     description,
+    ...restRequest
   }: RequestType) {
     try {
-      console.log('aqui');
-
       await createVehicleSchema.required().validate(
         {
           id_model: idModel,
           fabrication_year: fabricationYear,
           model_year: modelYear,
           description: description,
+          ...restRequest,
         },
         { abortEarly: false },
       );
@@ -45,6 +48,7 @@ export class CreateVehicleService {
       );
 
       const vehicle = await this.vehiclesRepository.createOne({
+        ...restRequest,
         createdBy,
         fabricationYear,
         idModel: id,

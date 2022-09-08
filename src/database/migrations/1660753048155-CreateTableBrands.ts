@@ -7,12 +7,7 @@ export default class CreateTableBrands1660753048155
     name: 'brands',
     schema: 'public',
     columns: [
-      {
-        name: 'uuid',
-        type: 'char',
-        length: '64',
-        isUnique: true,
-      },
+      { name: 'uuid', type: 'char', length: '64', isUnique: true },
       { name: 'id_brand', type: 'int', isPrimary: true, isGenerated: true },
 
       { name: 'name', type: 'varchar', length: '128' },
