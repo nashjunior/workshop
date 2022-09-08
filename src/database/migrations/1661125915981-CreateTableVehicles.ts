@@ -12,6 +12,7 @@ export default class CreateTableVehicles1661125915981
       { name: 'id_model', type: 'int' },
       { name: 'fabrication_year', type: 'smallint' },
       { name: 'model_year', type: 'smallint', isNullable: true },
+      { name: 'type', type: 'char', length: '1' },
       { name: 'description', type: 'varchar', length: '126', isNullable: true },
 
       {
