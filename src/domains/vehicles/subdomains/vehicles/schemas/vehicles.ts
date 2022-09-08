@@ -8,6 +8,7 @@ export const createVehicleSchema = Yup.object().shape({
     .typeError('invalid fabrication year type'),
   model_year: Yup.number().required().typeError('invalid model year type'),
   description: Yup.string().notRequired().max(126),
+  type: Yup.string().required().length(1),
 });
 
 export const findVehiclesSchema = Yup.object().shape(
