@@ -9,11 +9,13 @@ export const modelVehicleToApi = ({
   fabricationYear,
   modelYear,
   deletedAt,
+  type,
   model,
 }: Vehicle): CreatedVehicleType => {
   return {
     id,
     fabrication_year: fabricationYear,
+    type,
     model_year: modelYear,
     created_at: createdAt,
     updated_at: updatedAt,
