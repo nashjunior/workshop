@@ -7,7 +7,7 @@ import { FileInfo } from 'busboy';
 type BodyType = {
   url?: string;
   id_part: string;
-  file?: (FileInfo & { data: Buffer })[];
+  files?: (FileInfo & { data: Buffer })[];
 };
 
 @injectable()
@@ -16,14 +16,14 @@ export class PartsPhotosController {
     request: FastifyRequest<{ Body: BodyType }>,
     response: FastifyReply,
   ) {
-    const { id_part: idPart, url, file } = request.body;
+    const { id_part: idPart, url, files } = request.body;
 
     const createPartPhoto = dependecyContainer.resolve(CreatePartPhotoService);
 
     const partPhoto = await createPartPhoto.execute({
       createdBy: '123',
       idPart,
-      file: file?.[0],
+      files,
       url,
     });
 
