@@ -3,11 +3,13 @@ import {
   IPartsSubVehicleRepository,
   IVehiclesPartsRepository,
   IVehiclesRepository,
+  IVVehiclePartsRepository,
 } from './interfaces';
 import {
   PartsSubVehicleTypeormRepository,
   VehiclesPartTypeormRepository,
   VehiclesTypeormRepository,
+  VVehiclePartsTypeormRepository,
 } from './typeorm';
 
 export * from './interfaces';
@@ -24,4 +26,9 @@ dependecyContainer.register<IVehiclesPartsRepository>(
 dependecyContainer.register<IPartsSubVehicleRepository>(
   'PartsSubVehicleTypeormRepository',
   { useValue: PartsSubVehicleTypeormRepository },
+);
+
+dependecyContainer.register<IVVehiclePartsRepository>(
+  'VVehiclePartsTypeormRepository',
+  { useValue: VVehiclePartsTypeormRepository },
 );
