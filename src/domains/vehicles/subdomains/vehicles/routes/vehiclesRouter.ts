@@ -1,8 +1,11 @@
 import { dependecyContainer } from '../../../../../container';
 import { FastifyInstance, FastifyPluginOptions } from 'fastify';
-import { VehiclesController } from '../controllers';
+import { VehiclePartsController, VehiclesController } from '../controllers';
 
 const vehiclesController = dependecyContainer.resolve(VehiclesController);
+const vehiclePartsController = dependecyContainer.resolve(
+  VehiclePartsController,
+);
 
 export const vehiclesRouter = function (
   fastify: FastifyInstance,
@@ -12,6 +15,7 @@ export const vehiclesRouter = function (
   fastify.post('/', vehiclesController.create);
   fastify.get('/', vehiclesController.list);
   fastify.get('/:id', vehiclesController.show);
+  fastify.get('/:id/parts', vehiclePartsController.listByIdVehicle);
 
   done();
 };
