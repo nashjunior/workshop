@@ -4,3 +4,4 @@ export * from './CreatedVehicleType';
 export * from './CreatedPartType';
 export * from './CreatedPartPhotoType';
 export * from './CreatedVehiclePartType';
+export * from './VVehicleType';
