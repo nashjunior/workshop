@@ -10,6 +10,9 @@ export class Part extends BaseEntity {
   @Column({ name: 'name' })
   name: string;
 
+  @Column({ name: 'measure_unit' })
+  measureUnit: number;
+
   @Column({ name: 'description' })
   description?: string;
 
