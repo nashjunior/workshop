@@ -3,6 +3,7 @@ import { QueryFields, SortFieldsType } from '../enums';
 
 export const createPartSchema = yup.object().shape({
   name: yup.string().required().max(128),
+  measure_unit: yup.number().required().typeError('Only accepts number'),
   description: yup.string().notRequired(),
 });
 
