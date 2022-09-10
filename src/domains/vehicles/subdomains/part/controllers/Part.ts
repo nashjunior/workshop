@@ -11,22 +11,24 @@ import { IRequestQueryType } from '../../../../../interfaces/requests';
 type BodyType = {
   name: string;
   description?: string;
+  measure_unit: number;
 };
 
 @injectable()
 export class PartsController {
   async create(
-    request: FastifyRequest<{ Body: BodyType }>,
+    {
+      body: { name, description, measure_unit: measureUnit },
+    }: FastifyRequest<{ Body: BodyType }>,
     response: FastifyReply,
   ) {
-    const { name, description } = request.body;
-
     const createBrandService = dependecyContainer.resolve(CreatePartService);
 
     const part = await createBrandService.execute({
       createdBy: '123',
       name,
       description,
+      measureUnit,
     });
 
     return response.status(201).send(part);
