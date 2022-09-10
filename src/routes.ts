@@ -3,7 +3,10 @@ import { userRouter } from '@domains/users/subdomains/user';
 import { brandsRouter } from '@domains/vehicles/subdomains/brand';
 import { modelsRouter } from '@domains/vehicles/subdomains/model';
 import { partsRouter } from '@domains/vehicles/subdomains/part';
-import { partsPhotosRouter } from '@domains/vehicles/subdomains/part/routes/part.photo';
+import {
+  partsPhotosRouter,
+  partsStocksRouter,
+} from '@domains/vehicles/subdomains/part/routes';
 import {
   vehiclePartsRouter,
   vehiclesRouter,
@@ -18,3 +21,4 @@ server.register(vehiclesRouter, { prefix: '/vehicles' });
 server.register(partsRouter, { prefix: '/parts' });
 server.register(partsPhotosRouter, { prefix: '/parts_photos' });
 server.register(vehiclePartsRouter, { prefix: '/vehicle_parts' });
+server.register(partsStocksRouter, { prefix: '/parts_stocks' });
