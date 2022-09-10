@@ -1,24 +1,41 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreatePartsTable1662316322645 implements MigrationInterface {
+export class CreateTablePartsStocks1662684251317 implements MigrationInterface {
   private table = new Table({
-    name: 'parts',
+    name: 'parts_stocks',
     schema: 'vehicles',
     columns: [
       { name: 'uuid', type: 'char', length: '64', isUnique: true },
-      { name: 'id_part', type: 'int', isPrimary: true, isGenerated: true },
-      { name: 'name', type: 'varchar', length: '128' },
-      { name: 'description', type: 'varchar', isNullable: true },
-      { name: 'measure_unit', type: 'int' },
+      {
+        name: 'id_part_stock',
+        type: 'int',
+        isPrimary: true,
+        isGenerated: true,
+      },
+      { name: 'id_part', type: 'int' },
 
-      { name: 'created_by', type: 'varchar', isNullable: false },
+      { name: 'amount', type: 'numeric' },
+      { name: 'unit_value', type: 'numeric' },
+      { name: 'default_selling_price', type: 'numeric' },
 
+      { name: 'created_by', type: 'varchar' },
       { name: 'created_at', type: 'timestamp', default: 'now()' },
 
       { name: 'updated_by', type: 'varchar', isNullable: true },
       { name: 'updated_at', type: 'timestamp', isNullable: true },
 
       { name: 'deleted_at', type: 'timestamp', isNullable: true },
+    ],
+
+    foreignKeys: [
+      {
+        name: 'FK_PART',
+        referencedSchema: 'vehicles',
+        referencedTableName: 'parts',
+        referencedColumnNames: ['id_part'],
+        columnNames: ['id_part'],
+        onUpdate: 'CASCADE',
+      },
     ],
   });
 
