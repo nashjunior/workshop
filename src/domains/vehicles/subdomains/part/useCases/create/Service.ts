@@ -12,17 +12,21 @@ export class CreatePartService {
     @inject('PartsTypeormRepository') private partsRepository: IPartsRepository,
   ) {}
 
-  async execute({ name, description, ...rest }: ICreatePartDTOType) {
+  async execute({
+    name,
+    description,
+    measureUnit,
+    ...rest
+  }: ICreatePartDTOType) {
     try {
       await createPartSchema.validate(
-        { name, description },
+        { name, description, measure_unit: measureUnit },
         { abortEarly: false },
       );
 
-      console.log(rest);
-
       const part = await this.partsRepository.createOne({
         ...rest,
+        measureUnit,
         name,
         description,
       });
