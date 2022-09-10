@@ -5,3 +5,4 @@ export * from './Part';
 export * from './PartPhoto';
 export * from './VehiclePart';
 export * from './VVehiclePart';
+export * from './PartStock';
